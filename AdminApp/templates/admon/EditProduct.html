@@ -1,0 +1,80 @@
+{% extends "admon/admin.html" %}
+
+{% load static %}
+
+
+{% block content %}
+    <div class="card" style="width: 100%;">
+        <div class="card-header">
+            <strong>Edit Product</strong> {{message}}
+        </div>
+        <div class="card-body card-block">
+            <form action="" method="post"> {% csrf_token %}
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Name: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        {{ form.name }}
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Category: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                             {{form.category}}
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Image: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        {{form.image}}
+                        <small class="help-block form-text">Please select the file</small>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Description: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        {{form.description}}
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Size: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        {{ form.size }}
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Type: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        {{ form.type }}
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label class=" form-control-label">Price: </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        {{ form.price }}
+                    </div>
+                </div>
+                <div class="card-footer">
+            <input type="submit" class="btn btn-primary btn-sm" value="Save">
+        </div>
+            </form>
+        </div>
+    </div>
+
+{{request.POST}}
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "admon/admin.html" %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="col-md-12">
+    <!-- DATA TABLE -->
+    <h3 class="title-5 m-b-35">data table</h3>
+    <div class="table-data__tool">
+        <div class="table-data__tool-left">
+            <div class="rs-select2--light rs-select2--md">
+                <select class="js-select2" name="property">
+                    <option selected="selected">Filter</option>
+                    <option value="">Option 1</option>
+                    <option value="">Option 2</option>
+                </select>
+                <div class="dropDownSelect2"></div>
+            </div>
+        </div>
+        <div class="table-data__tool-right">
+            <form action="{% url 'add' %}">
+            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                <i class="zmdi zmdi-plus"></i>add product
+            </button>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive table-responsive-data2">
+        <table class="table table-data2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>category</th>
+                <th>platform</th>
+                <th>classification</th>
+                <th>price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+                {% for p in products %}
+            <tr class="tr-shadow">
+                <td>{{p.name}}</td>
+                <td>
+                    {{p.category}}
+                </td>
+                <td>{{p.platform}}</td>
+                <td>{{p.classification}}</td>
+                <td>{{p.price}} $</td>
+                <td>
+                    <div class="table-data-feature">
+                        <button onclick="window.location.href='{% url 'modify' p.id %}'" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <i class="zmdi zmdi-edit"></i>
+                        </button>
+                        <button onclick="window.location.href='{% url 'delete' p.id %}'" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <i class="zmdi zmdi-delete"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr class="spacer"></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+                 <!--Pagination-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if products.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+        {% endif %}
+        {% for i in products.paginator.page_range %}
+          {% if products.number == i %}
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">
+                {{ i }}
+              </span>
+            </li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if p.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ products.next_page_number }}">Next</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    <!--end of Pagination-->
+    </div>
+    <!-- END DATA TABLE -->
+</div>
+
+{% endblock %}
